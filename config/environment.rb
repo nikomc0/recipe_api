@@ -6,7 +6,7 @@ Dotenv.load
 
 env = ENV['ENVIRONMENT'].to_sym
 
-if env = :development
+if env == :development
 	ActiveRecord::Base.establish_connection(
 	  :adapter  => ENV['ADAPTER'],
 	  :host     => ENV['DATABASE_HOST'],
