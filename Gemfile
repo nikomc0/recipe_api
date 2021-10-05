@@ -6,7 +6,6 @@ gem 'dotenv'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
-gem 'sinatra-contrib'
 gem 'rake'
 gem 'bundler'
 gem 'json'
@@ -16,5 +15,4 @@ gem 'sinatra-cross_origin'
 group :development, :test do
 	gem 'shotgun'
 	gem 'pry-byebug'
-	gem 'dotenv'
 end
