@@ -7,7 +7,4 @@ require_relative './app/controllers/application_controller'
 
 # use Rack::MethodOverride
 
-# configure :development do
-# end
-
 run ApplicationController

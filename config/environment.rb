@@ -1,21 +1,18 @@
+require 'sinatra'
 require 'bundler'
 require 'dotenv'
+require 'yaml'
 
 Bundler.require
 Dotenv.load
 
-if ENV['ENVIRONMENT']
-	env = ENV['ENVIRONMENT'].to_sym
-	
-	if env == :development
-		ActiveRecord::Base.establish_connection(
-		  :adapter  => ENV['ADAPTER'],
-		  :host     => ENV['DATABASE_HOST'],
-		  :username => ENV['DATABASE_USER'],
-		  :password => ENV['DATABASE_PASSWORD'],
-		  :database => ENV['DATABASE_NAME']
-		)
-	end
+configure :development do
+	@config = YAML.load_file("./config/database.yml")
+
+    set :database, @config['development']
+    set :host, ENV['DATABASE_HOST']
+    set :user, ENV['DATABASE_USER']
+    set :password, ENV['DATABASE_PASSWORD']
 end
 
 require_all 'app'
