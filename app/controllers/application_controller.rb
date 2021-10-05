@@ -1,11 +1,9 @@
 require 'sinatra'
 require 'sinatra/namespace'
 require 'json'
-require 'dotenv'
 
 class ApplicationController < Sinatra::Base
 	register Sinatra::Namespace
-	Dotenv.load
 
 	namespace '/v1' do
 		get '/' do

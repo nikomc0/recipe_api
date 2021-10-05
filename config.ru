@@ -1,4 +1,3 @@
-require 'dotenv'
 require_relative './config/environment'
 require_relative './app/controllers/application_controller'
 
@@ -7,5 +6,8 @@ require_relative './app/controllers/application_controller'
 # end
 
 # use Rack::MethodOverride
+
+# configure :development do
+# end
 
 run ApplicationController
