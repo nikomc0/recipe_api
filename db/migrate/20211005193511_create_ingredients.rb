@@ -6,5 +6,7 @@ class CreateIngredients < ActiveRecord::Migration[6.1]
       t.string :store
       t.timestamps
     end
+
+    add_index :ingredients, :name, unique: true
   end
 end
