@@ -58,4 +58,53 @@ class ApplicationController < Sinatra::Base
 		end
 	end
 
+	# GET recipe and its ingredients
+	get '/recipe/:id' do 
+		recipe_id = params[:id]
+		recipe_id = recipe_id.to_i
+		
+		recipe = Recipe.find(recipe_id)
+
+		recipe_ingredients = RecipeIngredient.joins(:recipe, :ingredient).where(:recipe_id => recipe_id)
+		current_ingredients = []
+		recipe_ingredients.each do |t|
+			current_ingredients.push(Ingredient.find(t.ingredient_id))
+		end
+
+		return {
+			recipe: recipe,
+			recipe_ingredients: recipe_ingredients,
+			current_ingredients: current_ingredients
+		}.to_json
+	end
+
+	post '/recipe_ingredients/:id' do
+		# get the array of ingredients
+		recipe_id = params['id'].to_i
+		body = JSON.parse(request.body.read)
+
+		# does the ingredient already exist?
+		to_save = body['ingredients'].filter do |t|
+			if !recipe_ingredient_exists?(recipe_id, t['id'])
+				# save the ingredients into recipe ingredients
+				RecipeIngredient.create(recipe_id: recipe_id, ingredient_id: t['id'])
+			end
+		end
+
+		status 200
+	end
+
+	def recipe_ingredient_exists?(recipe_id, ingredient_id)
+		sql = "SELECT * FROM recipe_ingredients
+				WHERE recipe_id = #{recipe_id}
+				AND ingredient_id = #{ingredient_id};"
+
+		result = ActiveRecord::Base.connection.exec_query(sql)
+
+		if result.rows.length > 0
+			return true
+		else
+			return false
+		end
+	end
 end
