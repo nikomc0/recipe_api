@@ -2,7 +2,6 @@ require 'sinatra'
 require 'json'
 require 'sinatra/cross_origin'
 require "sinatra/json"
-require 'pry-byebug'
 
 class ApplicationController < Sinatra::Base
 	configure do
