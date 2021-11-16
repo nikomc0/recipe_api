@@ -30,6 +30,21 @@ class ApplicationController < Sinatra::Base
 		# erb :_recipes_list, :layout => :index
 	end
 
+	# CREATES a new recipe
+	post '/recipe' do
+		params = JSON.parse(request.body.read)
+
+		recipe = Recipe.new
+		recipe.name = params['recipe']
+
+		if recipe.save
+			return recipe.to_json
+		else
+			error = "Couldn't save recipe. Please try again."
+			halt 500, error
+		end
+	end
+
 	# GETS all ingredients
 	get '/ingredients' do
 		@ingredients = Ingredient.all
