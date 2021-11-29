@@ -25,7 +25,7 @@ class ApplicationController < Sinatra::Base
 	# GETS all ingredients for recipe
 	get '/recipes' do
 		@recipes = Recipe.all
-
+		
 		return @recipes.to_json
 		# erb :_recipes_list, :layout => :index
 	end
