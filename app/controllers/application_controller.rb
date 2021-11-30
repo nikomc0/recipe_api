@@ -1,7 +1,9 @@
 require 'sinatra'
 require 'json'
 require 'sinatra/cross_origin'
-require "sinatra/json"
+require 'sinatra/json'
+require 'pg'
+require 'pry-byebug'
 
 class ApplicationController < Sinatra::Base
 	configure do
@@ -106,6 +108,31 @@ class ApplicationController < Sinatra::Base
 		end
 
 		status 200
+	end
+
+	post '/recipe_ingredients' do 
+		params = JSON.parse(request.body.read)
+
+		recipe_ingredients = []
+
+		params['selectedRecipes'].each do |t|
+			values = []
+			recipe = Recipe.find(t)
+			ingredients = RecipeIngredient.joins(:recipe, :ingredient).where(:recipe_id => t)
+			ingredients.each do |ingredient|
+				values.push(Ingredient.find(ingredient.ingredient_id))
+			end
+
+			payload = { 
+				recipe: recipe, 
+				recipe_ingredients: values
+			}
+			
+			recipe_ingredients.push(payload)
+		end
+
+		p recipe_ingredients
+		recipe_ingredients.to_json
 	end
 
 	def recipe_ingredient_exists?(recipe_id, ingredient_id)
