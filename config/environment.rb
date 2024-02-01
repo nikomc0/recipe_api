@@ -7,6 +7,7 @@ Bundler.require
 Dotenv.load
 
 configure :development do
+    # Fix for Unknown alias: Psych since ruby 3.1+
     begin 
         @config = YAML.load_file("./config/database.yml", aliases: true)
     rescue ArgumentError
