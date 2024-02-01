@@ -7,7 +7,11 @@ Bundler.require
 Dotenv.load
 
 configure :development do
-	@config = YAML.load_file("./config/database.yml")
+    begin 
+        @config = YAML.load_file("./config/database.yml", aliases: true)
+    rescue ArgumentError
+        @config = YAML.load_file("./config/database.yml")
+    end
 
     set :database, @config['development']
     set :host, ENV['DATABASE_HOST']
