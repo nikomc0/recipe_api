@@ -18,7 +18,7 @@ class ApplicationController < Sinatra::Base
 	end
 
 	get '/' do
-		code = "<h3>API Grocery Helper</h3>"
+		code = "<h3>Ingredilist</h3>"
 		return code
 	end
 

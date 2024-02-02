@@ -1,23 +1,22 @@
 require 'sinatra'
 require 'bundler'
-require 'dotenv'
+require 'pry'
 require 'yaml'
+require 'dotenv'
 
 Bundler.require
-Dotenv.load
+Dotenv.load('.env')
 
 configure :development do
-    # Fix for Unknown alias: Psych since ruby 3.1+
-    begin 
-        @config = YAML.load_file("./config/database.yml", aliases: true)
-    rescue ArgumentError
-        @config = YAML.load_file("./config/database.yml")
-    end
-
-    set :database, @config['development']
-    set :host, ENV['DATABASE_HOST']
-    set :user, ENV['DATABASE_USER']
-    set :password, ENV['DATABASE_PASSWORD']
+    set :database, {
+        adapter: ENV['PG_ADAPTER'],
+        database: ENV['PG_DATABASE'],
+        pool: ENV['PG_POOL'],
+        host: ENV['PG_HOST'],
+        port: ENV['PG_PORT'],
+        username: ENV['PG_USERNAME'],
+        password: ENV['PG_PASSWORD']
+    }
 end
 
 require_all 'app'

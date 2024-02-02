@@ -43,7 +43,6 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
-    psych (3.3.4)
     rack (3.0.9)
     rack-protection (4.0.0)
       base64 (>= 0.1.0)
@@ -100,7 +99,6 @@ DEPENDENCIES
   json
   pg
   pry-byebug
-  psych (< 4)
   rake
   require_all
   sinatra

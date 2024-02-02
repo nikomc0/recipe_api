@@ -6,7 +6,7 @@ gem 'dotenv'
 gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
-gem 'sinatra-contrib'
+gem 'sinatra-contrib', require: false
 gem 'rake'
 gem 'bundler'
 gem 'json'
