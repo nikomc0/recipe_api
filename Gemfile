@@ -13,6 +13,7 @@ gem 'json'
 gem 'sinatra-cross_origin'
 
 group :development, :test do
+	gem 'rspec'
 	gem 'pry-byebug'
 	gem 'tux'
 end
