@@ -18,7 +18,8 @@ class ApplicationController < Sinatra::Base
 	end
 
 	get '/' do
-		code = "<h3>Ingredilist</h3>"
+		environment = ENV['APP_ENV']
+		code = "<h3>Ingredilist #{environment} </h3>"
 		return code
 	end
 

@@ -1,4 +1,5 @@
 require './config/environment'
+require 'rspec'
 
 RSpec.configure do |config|
     config.include Rack::Test::Methods
